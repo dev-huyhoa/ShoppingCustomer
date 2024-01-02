@@ -31,46 +31,47 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     // Get Category List
-    this.navigationService.getCategoryList().subscribe((list: Category[]) => {
+    // this.navigationService.getCategoryList().subscribe((list: Category[]) => {
+    //   for (let item of list) {
+    //     let present = false;
+    //     for (let navItem of this.navigationList) {
+    //       if (navItem.category === item.category) {
+    //         navItem.subcategories.push(item.subCategory);
+    //         present = true;
+    //       }
+    //     }
+    //     if (!present) {
+    //       this.navigationList.push({
+    //         category: item.category,
+    //         subcategories: [item.subCategory],
+    //       });
+    //     }
+    //   }
+    // });
+
+    this.navigationService.getsCategoryList().subscribe((list: Categories[]) => {
       for (let item of list) {
         let present = false;
         for (let navItem of this.navigationList) {
-          console.log( this.navigationList," this.navigationListOTren");
-
-          if (navItem.category === item.category) {
-            navItem.subcategories.push(item.subCategory);
-            present = true;
+          if (navItem.title === item.title) {
+            navItem.subCategory = item.subCategory
+            // navItem.subcategories.push(item.subCategory);
+            present = true;            
           }
         }
         if (!present) {
           this.navigationList.push({
-            category: item.category,
-            subcategories: [item.subCategory],
+            title: item.title,
+            subCategory: item.subCategory,
+            idCategory: item.idCategory,
+            titleEN: item.titleEN
           });
         }
       }
     });
 
-    // this.navigationService.getsCategory().subscribe((list: Categories[]) => {
-    //   for (let item of list) {
-    //     let present = false;
-    //     for (let navItem of this.navigationList) {
-    //       console.log( this.navigationList," this.navigationList");
-          
-    //       if (navItem.category === item.data.title) {
-    //         navItem.subcategories.push(item.data.subCategory);
-    //         present = true;
-    //         console.log(navItem,"navItem")
-    //       }
-    //     }
-    //     if (!present) {
-    //       this.navigationList.push({
-    //         category: item.data.title,
-    //         subcategories: [item.data.subCategory],
-    //       });
-    //     }
-    //   }
-    // });
+
+  
 
 
     // Cart

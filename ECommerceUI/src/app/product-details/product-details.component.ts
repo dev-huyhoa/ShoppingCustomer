@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Product, Review } from '../models/models';
+import { Product, Products, Review } from '../models/models';
 import { NavigationService } from '../services/navigation.service';
 import { UtilityService } from '../services/utility.service';
 
@@ -12,11 +12,14 @@ import { UtilityService } from '../services/utility.service';
 })
 export class ProductDetailsComponent implements OnInit {
   imageIndex: number = 1;
-  product!: Product;
+  // product!: Product;
   reviewControl = new FormControl('');
   showError = false;
   reviewSaved = false;
   otherReviews: Review[] = [];
+
+  //Hòa
+  product!: Products;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -25,44 +28,54 @@ export class ProductDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // this.activatedRoute.queryParams.subscribe((params: any) => {
+    //   let id = params.id;
+    //   this.navigationService.getProduct(id).subscribe((res: any) => {
+    //     this.product = res;
+    //     this.fetchAllReviews();
+    //   });
+    // });
+
     this.activatedRoute.queryParams.subscribe((params: any) => {
       let id = params.id;
-      this.navigationService.getProduct(id).subscribe((res: any) => {
+      this.navigationService.getProductById(id).subscribe((res: any) => {
         this.product = res;
-        this.fetchAllReviews();
+        console.log(" this.products", this.product);
+        
+        // this.fetchAllReviews();
       });
     });
 
   }
 
-  submitReview() {
-    let review = this.reviewControl.value;
+  // submitReview() {
+  //   let review = this.reviewControl.value;
 
-    if (review === '' || review === null) {
-      this.showError = true;
-      return;
-    }
+  //   if (review === '' || review === null) {
+  //     this.showError = true;
+  //     return;
+  //   }
 
-    let userid = this.utilityService.getUser().id;
-    let productid = this.product.id;
+  //   let userid = this.utilityService.getUser().id;
+  //   let productid = this.product.id;
 
-    this.navigationService
-      .submitReview(userid, productid, review)
-      .subscribe((res) => {
-        this.reviewSaved = true;
-        this.fetchAllReviews();
-        this.reviewControl.setValue('');
-      });
-  }
+  //   this.navigationService
+  //     .submitReview(userid, productid, review)
+  //     .subscribe((res) => {
+  //       this.reviewSaved = true;
+  //       this.fetchAllReviews();
+  //       this.reviewControl.setValue('');
+  //     });
+  // }
 
-  fetchAllReviews() {
-    this.otherReviews = [];
-    this.navigationService
-      .getAllReviewsOfProduct(this.product.id)
-      .subscribe((res: any) => {
-        for (let review of res) {
-          this.otherReviews.push(review);
-        }
-      });
-  }
+  // fetchAllReviews() {
+  //   this.otherReviews = [];
+  //   this.navigationService
+  //     .getAllReviewsOfProduct(this.product.id)
+  //     .subscribe((res: any) => {
+  //       for (let review of res) {
+  //         this.otherReviews.push(review);
+  //       }
+  //     });
+  // }
 }

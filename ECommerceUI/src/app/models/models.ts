@@ -3,10 +3,44 @@ export interface SuggestedProduct {
   category: Category;
 }
 
-export interface NavigationItem {
-  category: string;
-  subcategories: string[];
+//Hòa
+export interface SuggestedProducts {
+  banerimage: string;
+  category: Categories
 }
+
+export interface Products {
+  id: number;
+  title: string;
+  description: string;
+  category: Categories;
+  price: number;
+  quantity: number;
+  imageName: string;
+  discount: number
+}
+
+export interface Categories {
+  idCategory: number;
+  title: string;
+  titleEN: string;
+  subCategory: string;
+}
+
+export interface NavigationItem {
+  idCategory: number;
+  title: string;
+  titleEN: string;
+  subCategory: string;
+  // subcategories: string[];
+}
+
+//end
+
+// export interface NavigationItem {
+//   category: string;
+//   subcategories: string[];
+// }
 
 export interface User {
   id: number;
@@ -34,14 +68,6 @@ export interface Category {
   subCategory: string;
 }
 
-
-export interface Categories {
-  data: {
-    id: number;
-    title: string;
-    subCategory: string;
-  }
-}
 
 export interface Product {
   id: number;

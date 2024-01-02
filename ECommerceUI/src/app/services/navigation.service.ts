@@ -34,37 +34,69 @@ export class NavigationService {
     );
   }
 
-
-
-  getsCategory() {
-    let url = this.apiUrl + '/api/Category/listCategory';
-    return this.http.get<{ data: any[] }>(url).pipe( // Thay YourCategoryType bằng kiểu dữ liệu phù hợp
-      map((response) =>
-        response.data.map((category) => {
+  //API HÒA begin
+  getsCategoryList() {
+    let url = this.apiUrl + '/api/Category/GetCategoryList';
+    
+    return this.http.get<any[]>(url).pipe(
+      map((categories) =>
+        categories.map((category) => {
           let mappedCategory: Categories = {
-            data: {
-              id: category.idCategory,
-              title: category.title,
-              subCategory: category.subCategory || '',
-            }
+            idCategory: category.idCategory,
+            title: category.title,
+            subCategory: category.subCategory,
+            titleEN: category.titleEN
           };
           return mappedCategory;
+          
         })
       )
     );
   }
   
-  
-  
-
-  getProducts(category: string, subcategory: string, count: number) {
-    return this.http.get<any[]>(this.baseurl + 'GetProducts', {
+  getProductList(idCategory: number) {
+    return this.http.get<any[]>(this.apiUrl + '/api/Product/getProductCategories', {
       params: new HttpParams()
-        .set('category', category)
-        .set('subcategory', subcategory)
-        .set('count', count),
+        .set('idCategory', idCategory)
     });
   }
+  
+  getProductById(id: number) {
+    let url = this.apiUrl + '/api/Product/GetProductById?id=' + id;
+    console.log(url,"url");
+    
+    return this.http.get(url);
+  }
+
+  // getProductByIdCate(idCate: number) {
+  //   let url = this.apiUrl + '/api/Product/GetProductByIdCate?idCate=' + idCate;
+  //   console.log(url,"url");
+    
+  //   return this.http.get(url);
+  // }
+
+  getProductByIdCate(idCate: number) {
+    return this.http.get<any[]>(this.apiUrl + '/api/Product/GetProductByIdCate', {
+      params: new HttpParams()
+        .set('idCate', idCate)
+    });
+  }
+
+// end
+
+
+
+
+
+  // getProducts(category: string, subcategory: string, count: number) {
+  //   return this.http.get<any[]>(this.baseurl + 'GetProducts', {
+  //     params: new HttpParams()
+  //       .set('category', category)
+  //       .set('subcategory', subcategory)
+  //       .set('count', count),
+  //   });
+  // }
+
 
   getProduct(id: number) {
     let url = this.baseurl + 'GetProduct/' + id;

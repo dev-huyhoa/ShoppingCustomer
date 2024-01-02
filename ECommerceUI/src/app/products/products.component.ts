@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Product } from '../models/models';
+import { Products } from '../models/models';
 import { NavigationService } from '../services/navigation.service';
 import { UtilityService } from '../services/utility.service';
 
@@ -12,7 +12,9 @@ import { UtilityService } from '../services/utility.service';
 export class ProductsComponent implements OnInit {
   view: 'grid' | 'list' = 'list';
   sortby: 'default' | 'htl' | 'lth' = 'default';
-  products: Product[] = [];
+  // products: Product[] = [];
+  product: Products [] = []
+  
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -22,30 +24,32 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params: any) => {
-      let category = params.category;
-      let subcategory = params.subcategory;
-
-      if (category && subcategory)
+      let idCategory = params.idCategory;
+      let subcategory = params.idCategory;
+      console.log(params,"parammmmm");
+      
+      if (idCategory)
         this.navigationService
-          .getProducts(category, subcategory, 10)
+          .getProductByIdCate(idCategory)
           .subscribe((res: any) => {
-            this.products = res;
+            console.log(res,"resComponentProduct");
+            this.product = res;            
           });
     });
   }
 
-  sortByPrice(sortKey: string) {
-    this.products.sort((a, b) => {
-      if (sortKey === 'default') {
-        return a.id > b.id ? 1 : -1;
-      }
-      return (
-        (sortKey === 'htl' ? 1 : -1) *
-        (this.utilityService.applyDiscount(a.price, a.offer.discount) >
-        this.utilityService.applyDiscount(b.price, b.offer.discount)
-          ? -1
-          : 1)
-      );
-    });
-  }
+  // sortByPrice(sortKey: string) {
+  //   this.product.sort((a, b) => {
+  //     if (sortKey === 'default') {
+  //       return a.id > b.id ? 1 : -1;
+  //     }
+  //     return (
+  //       (sortKey === 'htl' ? 1 : -1) *
+  //       (this.utilityService.applyDiscount(a.price, a.offer.discount) >
+  //       this.utilityService.applyDiscount(b.price, b.offer.discount)
+  //         ? -1
+  //         : 1)
+  //     );
+  //   });
+  // }
 }

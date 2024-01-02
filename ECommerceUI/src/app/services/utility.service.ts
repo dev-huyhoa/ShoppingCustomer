@@ -50,14 +50,14 @@ export class UtilityService {
     localStorage.removeItem('user');
   }
 
-  addToCart(product: Product) {
-    let productid = product.id;
-    let userid = this.getUser().id;
+  // addToCart(product: Product) {
+  //   let productid = product.id;
+  //   let userid = this.getUser().id;
 
-    this.navigationService.addToCart(userid, productid).subscribe((res) => {
-      if (res.toString() === 'inserted') this.changeCart.next(1);
-    });
-  }
+  //   this.navigationService.addToCart(userid, productid).subscribe((res) => {
+  //     if (res.toString() === 'inserted') this.changeCart.next(1);
+  //   });
+  // }
 
   calculatePayment(cart: Cart, payment: Payment) {
     payment.totalAmount = 0;
@@ -99,5 +99,9 @@ export class UtilityService {
 
   orderTheCart() {
     
+  }
+
+  formatPrice(price: number): string {
+    return price.toLocaleString('en-US');
   }
 }

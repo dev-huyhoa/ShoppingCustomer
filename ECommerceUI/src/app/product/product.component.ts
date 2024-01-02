@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Product } from '../models/models';
+import { Product, Products } from '../models/models';
 import { UtilityService } from '../services/utility.service';
 
 @Component({
@@ -9,26 +9,48 @@ import { UtilityService } from '../services/utility.service';
 })
 export class ProductComponent implements OnInit {
   @Input() view: 'grid' | 'list' | 'currcartitem' | 'prevcartitem' = 'grid';
-  @Input() product: Product = {
+  // @Input() product: Product = {
+  //   id: 0,
+  //   title: '',
+  //   description: '',
+  //   price: 0,
+  //   quantity: 0,
+  //   productCategory: {
+  //     id: 1,
+  //     category: '',
+  //     subCategory: '',
+  //   },
+  //   offer: {
+  //     id: 1,
+  //     title: '',
+  //     discount: 0,
+  //   },
+  //   imageName: '',
+  // };
+
+  @Input() product: Products = {
     id: 0,
     title: '',
     description: '',
     price: 0,
     quantity: 0,
-    productCategory: {
-      id: 1,
-      category: '',
-      subCategory: '',
-    },
-    offer: {
-      id: 1,
+    category: {
+      idCategory: 1,
       title: '',
-      discount: 0,
+      subCategory: '',
+      titleEN: ''
     },
+    discount: 0,
     imageName: '',
   };
 
+  
+
+
   constructor(public utilityService: UtilityService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
+
+
 }

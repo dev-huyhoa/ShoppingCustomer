@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Category, Product } from '../models/models';
+import { Categories, Category, Product, Products } from '../models/models';
 import { NavigationService } from '../services/navigation.service';
 
 @Component({
@@ -13,22 +13,44 @@ export class SuggestedProductsComponent implements OnInit {
     category: '',
     subCategory: '',
   };
-  @Input() count: number = 3;
-  products: Product[] = [];
 
+  @Input() cate: Categories = {
+    idCategory: 1,
+    title: '',
+    subCategory: '',
+    titleEN: ''
+  };
+
+
+  @Input() count: number = 3;
+
+  //hòa
+  product: Products[] = []
   constructor(private navigationService: NavigationService) {}
 
   ngOnInit(): void {
+    
+    // this.navigationService
+    // .getProducts(
+    //   this.category.category,
+    //   this.category.subCategory,
+    //   this.count
+    // )
+    // .subscribe((res: any[]) => {
+    //   for (let product of res) {
+    //     this.products.push(product);
+    //   }
+    // });
+
+    
     this.navigationService
-    .getProducts(
-      this.category.category,
-      this.category.subCategory,
-      this.count
+    .getProductList(     
+      this.cate.idCategory,
     )
-    .subscribe((res: any[]) => {
+    .subscribe((res: any[]) => {      
       for (let product of res) {
-        this.products.push(product);
-      }
+        this.product.push(product);        
+      }      
     });
   }
 }
