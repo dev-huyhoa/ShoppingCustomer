@@ -37,15 +37,18 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    console.log(this.Email.value,"email");
+
     this.navigationService
-      .loginUser(this.Email.value, this.PWD.value)
+      .loginCustomer(this.Email.value, this.PWD.value)
       .subscribe((res: any) => {
+        
         if (res.toString() !== 'invalid') {
-          this.message = 'Logged In Successfully.';
+          this.message = 'Đăng nhập thành công!';
           this.utilityService.setUser(res.toString());
-          console.log(this.utilityService.getUser());
+          console.log(this.utilityService.getUser(),"đăng nhập");
         } else {
-          this.message = 'Invalid Credentials!';
+          this.message = 'Sai email hoặc mật khẩu!';
         }
       });
   }

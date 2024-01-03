@@ -68,13 +68,6 @@ export class NavigationService {
     return this.http.get(url);
   }
 
-  // getProductByIdCate(idCate: number) {
-  //   let url = this.apiUrl + '/api/Product/GetProductByIdCate?idCate=' + idCate;
-  //   console.log(url,"url");
-    
-  //   return this.http.get(url);
-  // }
-
   getProductByIdCate(idCate: number) {
     return this.http.get<any[]>(this.apiUrl + '/api/Product/GetProductByIdCate', {
       params: new HttpParams()
@@ -82,20 +75,18 @@ export class NavigationService {
     });
   }
 
+
+  loginCustomer(email: string, password: string) {
+    let url = this.apiUrl + '/api/Customer/LoginUser';
+    return this.http.post(
+      url,
+      { Email: email, Password: password },
+      { responseType: 'text' }
+    );
+  }
+
 // end
 
-
-
-
-
-  // getProducts(category: string, subcategory: string, count: number) {
-  //   return this.http.get<any[]>(this.baseurl + 'GetProducts', {
-  //     params: new HttpParams()
-  //       .set('category', category)
-  //       .set('subcategory', subcategory)
-  //       .set('count', count),
-  //   });
-  // }
 
 
   getProduct(id: number) {

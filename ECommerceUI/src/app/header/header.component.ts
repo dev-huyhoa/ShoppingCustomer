@@ -95,11 +95,11 @@ export class HeaderComponent implements OnInit {
     let componentType!: Type<any>;
     if (name === 'login') {
       componentType = LoginComponent;
-      this.modalTitle.nativeElement.textContent = 'Enter Login Information';
+      this.modalTitle.nativeElement.textContent = 'Đăng Nhập';
     }
     if (name === 'register') {
       componentType = RegisterComponent;
-      this.modalTitle.nativeElement.textContent = 'Enter Register Information';
+      this.modalTitle.nativeElement.textContent = 'Đăng Ký';
     }
 
     this.container.createComponent(componentType);

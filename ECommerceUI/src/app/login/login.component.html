@@ -6,30 +6,30 @@
         <label for="email" class="form-label">Email</label>
         <input type="email" class="form-control" id="email" formControlName="email">
         <div class="form-text text-danger" *ngIf="Email.errors?.['required'] && (Email.dirty || Email.touched)">
-            Email is Required
+            Email không hợp lệ
         </div>
         <div class="form-text text-danger" *ngIf="Email.errors?.['email'] && (Email.dirty || Email.touched)">
-            Email is Invalid.
+            Email không đúng định dạng
         </div>
     </div>
 
     <!-- Password -->
     <div class="mb-3">
-        <label for="pwd" class="form-label">Password</label>
+        <label for="pwd" class="form-label">Mật khẩu</label>
         <input type="password" class="form-control" id="pwd" formControlName="pwd">
         <div class="form-text text-danger" *ngIf="PWD.errors?.['required'] && (PWD.dirty || PWD.touched)">
-            Password is Required
+            Mật khẩu không được để trống
         </div>
         <div class="form-text text-danger"
              *ngIf="PWD.errors?.['minlength'] || PWD.errors?.['maxlength'] && (PWD.dirty || PWD.touched)">
-            Password should be at least 6 and at the max 15 characters long.
+            Mật khẩu nhập ít nhất 6 ký tự và tối đa 15 ký tự
         </div>
     </div>
 
     <!-- Login Button -->
     <div>
         <button type="submit" [disabled]="loginForm.invalid" class="d-block mx-auto btn btn-outline-primary">
-            Login
+            Đăng nhập
         </button>
     </div>
 
