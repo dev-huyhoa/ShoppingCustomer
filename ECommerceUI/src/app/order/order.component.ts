@@ -35,7 +35,7 @@ export class OrderComponent implements OnInit {
     id: 0,
     user: this.utilityService.getUser(),
     paymentMethod: {
-      id: 0,
+      idPaymentMethod: 0,
       type: '',
       provider: '',
       available: false,
@@ -63,6 +63,7 @@ export class OrderComponent implements OnInit {
     this.selectedPaymentMethod.valueChanges.subscribe((res: any) => {
       if (res === '0') this.selectedPaymentMethodName = '';
       else this.selectedPaymentMethodName = res.toString();
+
     });
 
     // Get Cart
@@ -71,6 +72,8 @@ export class OrderComponent implements OnInit {
       .subscribe((res: any) => {
         this.usersCart = res;
         this.utilityService.calculatePayment(res, this.usersPaymentInfo);
+        console.log(this.usersPaymentInfo,"this.usersPaymentInfo");
+        
       });
 
     // Set address and phone number
@@ -79,7 +82,7 @@ export class OrderComponent implements OnInit {
   }
 
   getPaymentMethod(id: string) {
-    let x = this.paymentMethods.find((v) => v.id === parseInt(id));
+    let x = this.paymentMethods.find((v) => v.idPaymentMethod === parseInt(id));
     return x?.type + ' - ' + x?.provider;
   }
 
@@ -129,7 +132,7 @@ export class OrderComponent implements OnInit {
     payment = {
       id: 0,
       paymentMethod: {
-        id: pmid,
+        idPaymentMethod: pmid,
         type: '',
         provider: '',
         available: false,
@@ -154,6 +157,10 @@ export class OrderComponent implements OnInit {
           payment: payment,
           createdAt: '',
         };
+        // order.cart.user.password = '123'    
+        console.log(order.cart,"cart");
+        console.log(this.utilityService.getUser(),"this.utilityService.getUser()");
+        
         this.navigationService.insertOrder(order).subscribe((orderResponse) => {
           this.utilityService.changeCart.next(0);
         });

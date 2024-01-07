@@ -37,8 +37,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.Email.value,"email");
-
     this.navigationService
       .loginCustomer(this.Email.value, this.PWD.value)
       .subscribe((res: any) => {
@@ -46,7 +44,6 @@ export class LoginComponent implements OnInit {
         if (res.toString() !== 'invalid') {
           this.message = 'Đăng nhập thành công!';
           this.utilityService.setUser(res.toString());
-          console.log(this.utilityService.getUser(),"đăng nhập");
         } else {
           this.message = 'Sai email hoặc mật khẩu!';
         }

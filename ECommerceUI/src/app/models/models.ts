@@ -94,7 +94,7 @@ export interface Review {
 
 export interface CartItem {
   id: number;
-  product: Product;
+  product: Products;
 }
 
 export interface Cart {
@@ -110,7 +110,7 @@ export interface Cart {
 // #region Payment and Orders
 
 export interface PaymentMethod {
-  id: number;
+  idPaymentMethod: number;
   type: string;
   provider: string;
   available: boolean;

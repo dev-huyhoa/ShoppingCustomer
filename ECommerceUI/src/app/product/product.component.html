@@ -22,9 +22,9 @@
         </div>
 
         <div class="card-footer d-grid gap-2">
-            <!-- <button type="button" class="btn btn-outline-success" [disabled]="!utilityService.isLoggedIn()"
-                    (click)="this.utilityService.addToCart(products)"> -->
-                    <button type="button" class="btn btn-outline-success" [disabled]="!utilityService.isLoggedIn()">
+            <button type="button" class="btn btn-outline-success" [disabled]="!utilityService.isLoggedIn()"
+                    (click)="this.utilityService.addToCart(product)">
+                    <!-- <button type="button" class="btn btn-outline-success" [disabled]="!utilityService.isLoggedIn()"> -->
                         Thêm vào giỏ hàng
                 <span *ngIf="!utilityService.isLoggedIn()">(Đăng nhập)</span>
             </button>
@@ -74,36 +74,36 @@
 </div>
 
 <!-- Cart Item View -->
-<!-- <div class="cart-item-view" *ngIf="view === 'currcartitem'">
+<div class="cart-item-view" *ngIf="view === 'currcartitem'">
     <div class="card">
         <div class="row g-0">
 
             <div class="col-4 overflow-hidden d-flex justify-content-center align-items-center">
-                <img src="../../assets/Images/{{product.productCategory.subCategory}}/{{product.id}}/1.jpg"
+                <img src="../../assets/Images/{{product.category.titleEN}}/{{product.id}}/1.png"
                      class="img-fluid rounded-start" alt="Product Image" OpenProductDetails [productId]="product.id">
             </div>
             <div class="col-8">
                 <div class="card-body">
                     <h5 class="card-title title"> {{product.title}} </h5>
                     <h5 class="card-title text-success">
-                        {{utilityService.applyDiscount(product.price, product.offer.discount)}}
-                        <span class="text-primary"> -{{product.offer.discount}}% </span>
+                        {{utilityService.formatPrice(utilityService.applyDiscount(product.price, product.discount))}}đ
+                        <span class="text-primary"> -{{product.discount}}% </span>
                     </h5>
                     <h6 class="card-subtitle text-danger text-decoration-line-through">
-                        {{ product.price }}
+                        {{utilityService.formatPrice(product.price)}}đ                    
                     </h6>
                 </div>
             </div>
 
         </div>
     </div>
-</div> -->
+</div>
 
-<!-- <div class="cart-item-view" *ngIf="view === 'prevcartitem'">
+<div class="cart-item-view" *ngIf="view === 'prevcartitem'">
     <div class="card text-center">
 
         <div class="overflow-hidden d-flex justify-content-center align-items-center">
-            <img src="../../assets/Images/{{product.productCategory.subCategory}}/{{product.id}}/1.jpg" alt=""
+            <img src="../../assets/Images/{{product.category.titleEN}}/{{product.id}}/1.png" alt=""
                  class="card-img-top" OpenProductDetails [productId]="product.id">
         </div>
 
@@ -111,4 +111,4 @@
             <h5 class="card-title title"> {{product.title}} </h5>
         </div>
     </div>
-</div> -->
+</div>

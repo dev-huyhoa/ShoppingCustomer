@@ -62,9 +62,7 @@ export class NavigationService {
   }
   
   getProductById(id: number) {
-    let url = this.apiUrl + '/api/Product/GetProductById?id=' + id;
-    console.log(url,"url");
-    
+    let url = this.apiUrl + '/api/Product/GetProductById?id=' + id;    
     return this.http.get(url);
   }
 
@@ -85,9 +83,38 @@ export class NavigationService {
     );
   }
 
+  addToCarts(userid: number, productid: number) {    
+    let url = this.apiUrl + '/api/Cart/insertCartItem?idCustomer=' + userid + '&idProduct=' + productid;
+    return this.http.post(url, null, { responseType: 'text' });
+  }
+
+  getActiveCartOfUser(userid: number) {
+    let url = this.apiUrl + '/api/Cart/getActiveCartOfUser?idCustomer=' + userid;
+    return this.http.get(url);
+  }
+
+  getAllPreviousCarts(userid: number) {    
+    let url = this.apiUrl + '/api/Cart/getAllPreviousCartsOfUser?idCustomer=' + userid;    
+    return this.http.get(url);
+  }
+
+  getPaymentMethods() {
+    let url = this.apiUrl + '/api/Payment/GetPaymentMethods';
+    return this.http.get<PaymentMethod[]>(url);
+  }
 // end
 
+insertPayment(paymentViewModel: Payment) {
+  console.log(paymentViewModel,"paymentpayment");
+  
+  return this.http.post(this.apiUrl + '/api/Payment/InsertPayment', paymentViewModel, {
+    responseType: 'text',
+  });
+}
 
+insertOrder(orderViewModel: Order) {
+  return this.http.post(this.apiUrl + '/api/Payment/InsertOrder', orderViewModel);
+}
 
   getProduct(id: number) {
     let url = this.baseurl + 'GetProduct/' + id;
@@ -133,28 +160,17 @@ export class NavigationService {
     return this.http.post(url, null, { responseType: 'text' });
   }
 
-  getActiveCartOfUser(userid: number) {
-    let url = this.baseurl + 'GetActiveCartOfUser/' + userid;
-    return this.http.get(url);
-  }
+  // getActiveCartOfUser(userid: number) {
+  //   let url = this.baseurl + 'GetActiveCartOfUser/' + userid;
+  //   return this.http.get(url);
+  // }
 
-  getAllPreviousCarts(userid: number) {
-    let url = this.baseurl + 'GetAllPreviousCartsOfUser/' + userid;
-    return this.http.get(url);
-  }
+  // getAllPreviousCarts(userid: number) {
+  //   let url = this.baseurl + 'GetAllPreviousCartsOfUser/' + userid;
+  //   return this.http.get(url);
+  // }
 
-  getPaymentMethods() {
-    let url = this.baseurl + 'GetPaymentMethods';
-    return this.http.get<PaymentMethod[]>(url);
-  }
 
-  insertPayment(payment: Payment) {
-    return this.http.post(this.baseurl + 'InsertPayment', payment, {
-      responseType: 'text',
-    });
-  }
 
-  insertOrder(order: Order) {
-    return this.http.post(this.baseurl + 'InsertOrder', order);
-  }
+
 }

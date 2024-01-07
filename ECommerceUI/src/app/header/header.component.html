@@ -35,13 +35,13 @@
             <button type="button" class="btn btn-outline-light" *ngIf="utilityService.isLoggedIn()">Tài Khoản</button>
             <button type="button" class="btn btn-outline-light" routerLink="/cart"
                     *ngIf="utilityService.isLoggedIn()">
-                    Cart
+                    Giỏ hàng
                     <span class="badge bg-warning text-dark">{{cartItems}}</span>
                 </button>
             <button type="button" class="btn btn-outline-light" routerLink="/orders"
-                    *ngIf="utilityService.isLoggedIn()">Orders</button>
+                    *ngIf="utilityService.isLoggedIn()">Đơn hàng</button>
             <button type="button" class="btn btn-outline-light" (click)="utilityService.logoutUser()"
-                    *ngIf="utilityService.isLoggedIn()">Logout</button>
+                    *ngIf="utilityService.isLoggedIn()">Đăng xuất</button>
         </div>
     </div>
 </header>

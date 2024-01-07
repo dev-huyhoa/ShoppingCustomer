@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Subject, window } from 'rxjs';
-import { Cart, Payment, Product, User } from '../models/models';
+import { Cart, Payment, Products, User } from '../models/models';
 import { NavigationService } from './navigation.service';
 
 @Injectable({
@@ -25,16 +25,18 @@ export class UtilityService {
   getUser(): User {
     let token = this.jwt.decodeToken();
     let user: User = {
+      
       id: token.id,
-      firstName: token.firstName,
       lastName: token.lastName,
+      firstName: token.firstName,
       address: token.address,
       mobile: token.mobile,
       email: token.email,
-      password: '',
+      password: token.password,
       createdAt: token.createdAt,
       modifiedAt: token.modifiedAt,
     };
+
     return user;
   }
 
@@ -49,17 +51,18 @@ export class UtilityService {
   logoutUser() {
     localStorage.removeItem('user');
   }
+  // Hòa
+  addToCart(product: Products) {
+    let productid = product.id;
+    let userid = this.getUser().id;    
+    this.navigationService.addToCarts(userid, productid).subscribe((res) => {
+      if (res.toString() === 'inserted') {
+        this.changeCart.next(1)
+      }
+    });
+  }
 
-  // addToCart(product: Product) {
-  //   let productid = product.id;
-  //   let userid = this.getUser().id;
-
-  //   this.navigationService.addToCart(userid, productid).subscribe((res) => {
-  //     if (res.toString() === 'inserted') this.changeCart.next(1);
-  //   });
-  // }
-
-  calculatePayment(cart: Cart, payment: Payment) {
+  calculatePayment(cart: Cart, payment: Payment) {    
     payment.totalAmount = 0;
     payment.amountPaid = 0;
     payment.amountReduced = 0;
@@ -71,19 +74,21 @@ export class UtilityService {
         cartitem.product.price -
         this.applyDiscount(
           cartitem.product.price,
-          cartitem.product.offer.discount
+          cartitem.product.discount
         );
 
       payment.amountPaid += this.applyDiscount(
         cartitem.product.price,
-        cartitem.product.offer.discount
+        cartitem.product.discount
       );
     }
 
-    if (payment.amountPaid > 50000) payment.shipingCharges = 2000;
-    else if (payment.amountPaid > 20000) payment.shipingCharges = 1000;
-    else if (payment.amountPaid > 5000) payment.shipingCharges = 500;
-    else payment.shipingCharges = 200;
+    // if (payment.amountPaid > 50000) payment.shipingCharges = 2000;
+    // else if (payment.amountPaid > 20000) payment.shipingCharges = 1000;
+    // else if (payment.amountPaid > 5000) payment.shipingCharges = 500;
+    // else payment.shipingCharges = 2000;
+    payment.shipingCharges = 20000;
+
   }
 
   calculatePricePaid(cart: Cart) {
@@ -91,7 +96,7 @@ export class UtilityService {
     for (let cartitem of cart.cartItems) {
       pricepaid += this.applyDiscount(
         cartitem.product.price,
-        cartitem.product.offer.discount
+        cartitem.product.discount
       );
     }
     return pricepaid;

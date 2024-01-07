@@ -21,7 +21,7 @@ export class CartComponent implements OnInit {
     id: 0,
     user: this.utilityService.getUser(),
     paymentMethod: {
-      id: 0,
+      idPaymentMethod: 0,
       type: '',
       provider: '',
       available: false,
@@ -43,9 +43,11 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     // Get Cart
+    
     this.navigationService
       .getActiveCartOfUser(this.utilityService.getUser().id)
       .subscribe((res: any) => {
+        
         this.usersCart = res;
 
         // Calculate Payment
